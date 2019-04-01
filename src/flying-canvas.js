@@ -1,6 +1,10 @@
 (function (scope) {
     "use strict";
     var fc = function () {
+        
+        var getRndNumBetween = function (min, max) { // min and max included
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        };
 
         var defaults = {
             timeoutDelay: 500,
@@ -9,13 +13,13 @@
 
         var current_x = null,
             current_y = null,
-            des_x = 1,
-            des_y = 1,
+            des_x = getRndNumBetween(1,10),
+            des_y = getRndNumBetween(1,10),
             window_max_x = 640,
             window_max_y = 480,
             domEl = null,
             timerId = null,
-            timeoutDelay = 500;
+            timeoutDelay = 500; //125;
 
         var getHtmlString = function (templateName) {
 
@@ -52,9 +56,8 @@
 
         var movementFunction = function (el) {
 
-
-            if (current_x === null) current_x = 0; // Get random value here
-            if (current_y === null) current_y = 0; // Get random value here
+            if (current_x === null) current_x = getRndNumBetween(1,window_max_x); // Get random value here
+            if (current_y === null) current_y = getRndNumBetween(1,window_max_y); // Get random value here
 
             var x = 0,
                 y = 0;
