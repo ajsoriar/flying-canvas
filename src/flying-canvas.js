@@ -25,10 +25,18 @@
 
             var str = '';
 
-            var common_styles_1 = 'width: 100px; height: 100px; border: 1px solid red; display: block;';
+            var common_styles_1 = 'width: 300px; height: 200px; border: 1px solid red; display: block;';
 
             function drawSquare() {
-                return '<div style="position:absolute;' + common_styles_1 + '"><div class="shape-square">htmlstring</div></div>';
+                var str = '';
+
+                str +=  '<div style="position:absolute;' + common_styles_1 + '">'+
+                            '<div class="shape-square"></div>'+
+                            '<div class="right-wing"></div>'+
+                            '<div class="left-wing"></div>'+
+                        '</div>';
+
+                return str;
             }
 
             function drawCircle() {
@@ -43,10 +51,10 @@
                 case 'SQUARE':
                     str = drawSquare();
                     break;
-                case 'SQUARE':
+                case 'CIRCLE':
                     str = drawSquare();
                     break;
-                case 'SQUARE':
+                case 'OVAL':
                     str = drawSquare();
                     break;
             }

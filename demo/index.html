@@ -7,12 +7,50 @@
     <title>flying-canvas.js</title>
     <style>
         body {
-            background-image: url(./bg.gif);
-            background-color: #cccccc;
+            //background-image: url(./bg.gif);
+            //background-color: #cccccc;
             -webkit-font-smoothing: none;
             -moz-osx-font-smoothing: grayscale;
             font-size: 24px;
         }
+
+/*
+        str +=  '<div style="position:absolute;' + common_styles_1 + '">'+
+                            '<div class="shape-square"></div>'+
+                            '<div class="right-wing"></div>'+
+                            '<div class="left-wing"></div>'+
+                        '</div>';
+*/
+        .shape-square{
+            position: absolute;
+            left: 60px;
+            top: 0;
+            width: 180px;
+            border: 1px solid blue;
+            height: 200px;
+            background-color: aquamarine;
+        }
+
+        .right-wing{
+            position: absolute;
+            left: 180px;
+            top: 0;
+            width: 60px;
+            border: 1px solid green;
+            height: 200px;
+            background-color: #ffe9b2;
+        }
+
+        .left-wing{
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 60px;
+            border: 1px solid green;
+            height: 200px;
+            background-color: lavender;
+        }
+
     </style>
 </head>
 <body>
