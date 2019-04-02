@@ -14,6 +14,10 @@
             font-size: 24px;
         }
 
+        .main-container{
+            transform: scale(1);
+        }
+
 /*
         str +=  '<div style="position:absolute;' + common_styles_1 + '">'+
                             '<div class="shape-square"></div>'+
@@ -21,35 +25,59 @@
                             '<div class="left-wing"></div>'+
                         '</div>';
 */
-        .shape-square{
+        .shape-square-l{
             position: absolute;
             left: 60px;
             top: 0;
             width: 180px;
+            border: 2px solid blue;
+            height: 200px;
+            background-color: aquamarine;
+            padding-left: 25px;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .shape-square-r{
+            position: absolute;
+            left: 60px;
+            top: 0;
+            width: 100%;
+            border: 1px solid blue;
+            height: 200px;
+            background-color: aquamarine;
+            padding-left: 25px;
+        }
+
+        .shape-square-c{
+            position: absolute;
+            left: 60px;
+            top: 0;
+            width: 100%;
             border: 1px solid blue;
             height: 200px;
             background-color: aquamarine;
         }
 
-        .right-wing{
+        .wing{
             position: absolute;
-            left: 180px;
             top: 0;
-            width: 60px;
-            border: 1px solid green;
-            height: 200px;
-            background-color: #ffe9b2;
+            width: 223px;
+            border: 0px solid green;
+            height: 173px;
+            background-color: lavender;
+            background-image: url(../src/wing.png);
         }
 
-        .left-wing{
-            position: absolute;
-            left: 0px;
-            top: 0;
-            width: 60px;
-            border: 1px solid green;
-            height: 200px;
-            background-color: lavender;
+        .wing.right{
+            right: -223px;
+            transform: scaleX(-1);
         }
+
+        .wing.left{
+            left: -223px;
+        }
+
 
     </style>
 </head>

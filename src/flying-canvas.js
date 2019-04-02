@@ -30,12 +30,21 @@
             function drawSquare() {
                 var str = '';
 
-                str +=  '<div style="position:absolute;' + common_styles_1 + '">'+
-                            '<div class="shape-square"></div>'+
-                            '<div class="right-wing"></div>'+
-                            '<div class="left-wing"></div>'+
-                        '</div>';
+                str +=  '<div class="main-container" style="position:absolute;' + common_styles_1 + '">'+
 
+                            // wings
+                            '<div class="wing right"></div>'+
+                            '<div class="wing left"></div>'+
+
+                            // canvas
+                            '<div class="shape-square-l">'+
+                                '<div class="shape-square-r">'+
+                                    '<div class="shape-square-c">'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+
+                        '</div>';
                 return str;
             }
 
@@ -114,7 +123,7 @@
             if (domEl === null) createDomEl();
             timerId = setTimeout(function request() {
                 movementFunction(domEl);
-                timerId = setTimeout(request, timeoutDelay);
+                //timerId = setTimeout(request, timeoutDelay);
             }, timeoutDelay);
         };
 
