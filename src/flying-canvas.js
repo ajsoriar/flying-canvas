@@ -25,7 +25,10 @@
 
             var str = '';
 
-            var common_styles_1 = 'width: 300px; height: 200px; border: 1px solid red; display: block;';
+            var common_styles_1 = '';
+            common_styles_1 += 'width: 300px;';
+            //common_styles_1 += 'height: 200px; ';
+            common_styles_1 += 'border: 1px solid red; display: block;';
 
             function drawSquare() {
                 var str = '';
@@ -35,15 +38,15 @@
                             // wings
                             '<div class="wing right"></div>'+
                             '<div class="wing left"></div>'+
-
-                            // canvas
-                            '<div class="shape-square-l">'+
-                                '<div class="shape-square-r">'+
-                                    '<div class="shape-square-c">'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-
+                            '<div class="mq top-l bg-1"></div>'+
+                            '<div class="mq top-c bg-2"></div>'+
+                            '<div class="mq top-r bg-1"></div>'+
+                            '<div class="mq middle-l bg-3"></div>'+
+                            '<div class="mq middle-c bg-4"></div>'+
+                            '<div class="mq middle-r bg-3"></div>'+
+                            '<div class="mq bottom-l bg-1"></div>'+
+                            '<div class="mq bottom-c bg-2"></div>'+
+                            '<div class="mq bottom-r bg-1"></div>'+
                         '</div>';
                 return str;
             }
