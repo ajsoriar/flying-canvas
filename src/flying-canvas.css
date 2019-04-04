@@ -1,0 +1,173 @@
+/**
+ * flying-canvas
+ * Flying Canvas.
+ * @version v0.0.1 - 2019-04-04
+ * @link https://github.com/ajsoriar/flying-canvas
+ * @author Andres J. Soria R. <ajsoriar@gmail.com>
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+
+ .main-container{
+    transform: scale(1);
+    position: absolute;
+    width: 300px;
+    height: 375px;
+    border: 1px solid red;
+    display: block;
+}
+
+/*
+str += '<div style="position:absolute;' + common_styles_1 + '">'+
+    '<div class="shape-square"></div>'+
+    '<div class="right-wing"></div>'+
+    '<div class="left-wing"></div>'+
+    '</div>';
+*/
+
+/*
+.shape-square-l{
+position: absolute;
+left: 0px;
+top: 0;
+width: 180px;
+border: 2px solid blue;
+height: 200px;
+background-color: aquamarine;
+padding-left: 25px;
+overflow: hidden;
+display: inline-block;
+}
+
+.shape-square-l{
+background-image: url(./frame-v-256x256.png);
+background-repeat-x: no-repeat;
+background-repeat-y: repeat;
+background-size: 150px 150px;
+}
+.shape-square-l:after {
+background-image: url(./frame-c-256x256.png);
+background-repeat-x: no-repeat;
+background-repeat-y: repeat;
+background-size: 150px 150px;
+background-position: 0 0;
+content: normal;
+display: block;
+width: 150px;
+height: 150px;
+top: -20px;
+left: -20px;
+}
+.shape-square-l:before {
+background-image: url(./frame-c-256x256.png);
+background-repeat-x: no-repeat;
+background-repeat-y: repeat;
+background-size: 150px 150px;
+background-position: 0 0;
+}
+*/
+
+.shape-square-r{
+    display: none;
+    position: absolute;
+    right: 60px;
+    top: 0;
+    width: 100%;
+    border: 1px solid blue;
+    height: 200px;
+    background-color: aquamarine;
+    padding-left: 25px;
+}
+
+.shape-square-c{
+    position: absolute;
+    left: 60px;
+    top: 0;
+    width: 100%;
+    border: 1px solid blue;
+    height: 200px;
+    background-color: aquamarine;
+}
+
+/* --- WINGS --- */
+.wing{
+    position: absolute;
+    top: 0;
+    width: 223px;
+    border: 0px solid green;
+    height: 173px;
+    background-color: lavender;
+    background-image: url(./wing.png);
+}
+
+.wing.right{
+    right: -223px;
+    transform: scaleX(-1);
+}
+
+.wing.left{
+    left: -223px;
+}
+
+/* --- CANVAS --- */
+
+.bg-1{
+    background-image: url(./frame-c-256x256.png);
+}
+.bg-3{
+    background-image: url(./frame-v-256x256.png);
+}
+.bg-2{
+    background-image: url(./frame-h-256x256.png);
+}
+.bg-4{
+
+}
+
+.mq{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background-size: 150px 150px;
+}
+
+.top-l{
+    top: 0;
+    left: 0;
+}
+.top-c{
+    top: 0;
+    left: 75px;
+}
+.top-r{
+    top: 0;
+    right: 0px;
+    background-position: -75px 0px;
+}
+.middle-l{
+    top: 75px;
+    left: 0;
+}
+.middle-c{
+    top: 75px;
+    left: 75px;
+}
+.middle-r{
+    top: 75px;
+    right: 0px;
+    background-position: -75px 0px;
+}
+.bottom-l{
+    bottom: 0;
+    left: 0;
+    background-position: 0px -75px;
+}
+.bottom-c{
+    bottom: 0;
+    left: 75px;
+    background-position: 0px -75px;
+}
+.bottom-r{
+    bottom: 0;
+    right: 0px;
+    background-position: -75px -75px;
+}
