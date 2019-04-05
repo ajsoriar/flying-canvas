@@ -29,11 +29,11 @@
             current_y = null,
             des_x = getRndNumBetween(1,10),
             des_y = getRndNumBetween(1,10),
-            window_max_x = 640,
-            window_max_y = 480,
+            window_max_x = window.innerWidth - defaults.canvas_w, //640,
+            window_max_y = window.innerHeight - defaults.canvas_h, //480,
             domEl = null,
             timerId = null,
-            timeoutDelay = 500; //125;
+            timeoutDelay = 125; //125;
 
         var getHtmlString = function (templateName, params) {
 
