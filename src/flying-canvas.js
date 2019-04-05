@@ -17,7 +17,12 @@
 
         var defaults = {
             timeoutDelay: 500,
-            template: "SQUARE" // CIRCLE, OVAL
+            template: "SQUARE", // CIRCLE, OVAL
+            wing_w: null,
+            wing_h: null,
+            canvas_w: 350,
+            canvas_h: 400,
+            corner_size: 75
         };
 
         var current_x = null,
@@ -30,42 +35,50 @@
             timerId = null,
             timeoutDelay = 500; //125;
 
-        var getHtmlString = function (templateName) {
+        var getHtmlString = function (templateName, params) {
 
-            var str = '';
+            var str = '',
+                canvas_styles_1 = '',
+                arm_h_styles = '',
+                arm_v_styles = '',
+                picture_styles = '';
 
-            var common_styles_1 = '';
-            common_styles_1 += 'width: 300px;';
-            //common_styles_1 += 'height: 200px; ';
-            common_styles_1 += 'border: 1px solid red; display: block;';
+            canvas_styles_1 += 'border: 0px solid red; display: block; box-shadow: 4px 6px 8px 2px rgba(0,0,0,0.5);';
+            canvas_styles_1 += 'width: '+ defaults.canvas_w +'px;';
+            canvas_styles_1 += 'height: '+ defaults.canvas_h +'px;';
+            var arm_w = defaults.canvas_w - ( 2 * defaults.corner_size );
+            var arm_h = defaults.canvas_h - ( 2 * defaults.corner_size );
+            arm_h_styles += 'width: '+ arm_w +'px;';
+            arm_v_styles += 'height: '+ arm_h +'px;';
+            picture_styles += 'border: 0px solid red; display: block; background-color: black;';
+            picture_styles += 'background-image: linear-gradient(red, yellow, blue); background-size: 100% 100%;'
+            picture_styles += 'width: '+ arm_w +'px;';
+            picture_styles += 'height: '+ arm_h +'px;';
 
             function drawSquare() {
                 var str = '';
-
-                str +=  '<div class="main-container" style="position:absolute;' + common_styles_1 + '">'+
-
-                            // wings
+                str +=  '<div class="main-container" style="position:absolute;'+ canvas_styles_1 +'">'+
                             '<div class="wing right"></div>'+
                             '<div class="wing left"></div>'+
                             '<div class="mq top-l bg-1"></div>'+
-                            '<div class="mq top-c bg-2"></div>'+
+                            '<div class="mq top-c bg-2" style="'+ arm_h_styles +'"></div>'+
                             '<div class="mq top-r bg-1"></div>'+
-                            '<div class="mq middle-l bg-3"></div>'+
-                            '<div class="mq middle-c bg-4"></div>'+
-                            '<div class="mq middle-r bg-3"></div>'+
+                            '<div class="mq middle-l bg-3" style="'+ arm_v_styles +'"></div>'+
+                            '<div class="mq middle-c bg-4" style="'+ picture_styles +'"></div>'+
+                            '<div class="mq middle-r bg-3" style="'+ arm_v_styles +'"></div>'+
                             '<div class="mq bottom-l bg-1"></div>'+
-                            '<div class="mq bottom-c bg-2"></div>'+
+                            '<div class="mq bottom-c bg-2" style="'+ arm_h_styles +'"></div>'+
                             '<div class="mq bottom-r bg-1"></div>'+
                         '</div>';
                 return str;
             }
 
             function drawCircle() {
-                return '<div style="position:absolute;' + common_styles_1 + '"><div class="shape-circle">htmlstring</div></div>';
+                return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-circle">htmlstring</div></div>';
             }
 
             function drawOval() {
-                return '<div style="position:absolute;' + common_styles_1 + '"><div class="shape-oval">htmlstring</div></div>';
+                return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-oval">htmlstring</div></div>';
             }
 
             switch (templateName) {
@@ -95,12 +108,9 @@
             if (current_y <= 0) des_y = -des_y;
             if (current_x >= window_max_x) des_x = -des_x;
             if (current_y >= window_max_y) des_y = -des_y;
-
             current_x = current_x - des_x;
             current_y = current_y - des_y;
-
-            console.log("Move! current_x:", current_x, " current_y:", current_y);
-
+            //console.log("Move! current_x:", current_x, " current_y:", current_y);
             el.style.top = current_y + "px";
             el.style.left = current_x + "px";
 
@@ -110,7 +120,7 @@
             };
         };
 
-        var createDomEl = function () {
+        var createDomEl = function (params) {
             domEl = document.getElementById("flying-canvas");
             if (domEl != null) {
                 //cleanContent();
@@ -121,7 +131,7 @@
                 domEl.setAttribute("class", "flying-canvas");
                 domEl.style.position = "absolute";
             }
-            domEl.innerHTML = getHtmlString(defaults.template);
+            domEl.innerHTML = getHtmlString(defaults.template, params);
             document.body.appendChild(domEl);
         };
 
@@ -131,11 +141,19 @@
             domEl = null;
         };
 
-        var start = function () {
-            if (domEl === null) createDomEl();
+        /*
+        {
+            width: 100,
+            height: 200,
+            src: "./bg.bmp"
+        }
+        */
+
+        var start = function (params) {
+            if (domEl === null) createDomEl(params);
             timerId = setTimeout(function request() {
                 movementFunction(domEl);
-                //timerId = setTimeout(request, timeoutDelay);
+                timerId = setTimeout(request, timeoutDelay);
             }, timeoutDelay);
         };
 

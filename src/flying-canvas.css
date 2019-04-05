@@ -14,57 +14,8 @@
     height: 375px;
     border: 1px solid red;
     display: block;
+    xxxtransform: scale(0.6);
 }
-
-/*
-str += '<div style="position:absolute;' + common_styles_1 + '">'+
-    '<div class="shape-square"></div>'+
-    '<div class="right-wing"></div>'+
-    '<div class="left-wing"></div>'+
-    '</div>';
-*/
-
-/*
-.shape-square-l{
-position: absolute;
-left: 0px;
-top: 0;
-width: 180px;
-border: 2px solid blue;
-height: 200px;
-background-color: aquamarine;
-padding-left: 25px;
-overflow: hidden;
-display: inline-block;
-}
-
-.shape-square-l{
-background-image: url(./frame-v-256x256.png);
-background-repeat-x: no-repeat;
-background-repeat-y: repeat;
-background-size: 150px 150px;
-}
-.shape-square-l:after {
-background-image: url(./frame-c-256x256.png);
-background-repeat-x: no-repeat;
-background-repeat-y: repeat;
-background-size: 150px 150px;
-background-position: 0 0;
-content: normal;
-display: block;
-width: 150px;
-height: 150px;
-top: -20px;
-left: -20px;
-}
-.shape-square-l:before {
-background-image: url(./frame-c-256x256.png);
-background-repeat-x: no-repeat;
-background-repeat-y: repeat;
-background-size: 150px 150px;
-background-position: 0 0;
-}
-*/
 
 .shape-square-r{
     display: none;
@@ -88,7 +39,6 @@ background-position: 0 0;
     background-color: aquamarine;
 }
 
-/* --- WINGS --- */
 .wing{
     position: absolute;
     top: 0;
@@ -113,14 +63,18 @@ background-position: 0 0;
 .bg-1{
     background-image: url(./frame-c-256x256.png);
 }
+
 .bg-3{
     background-image: url(./frame-v-256x256.png);
 }
+
 .bg-2{
     background-image: url(./frame-h-256x256.png);
 }
-.bg-4{
 
+.bg-4{
+    _background-image: linear-gradient(red, yellow, blue);
+    _background-size: 100% 100%;
 }
 
 .mq{
