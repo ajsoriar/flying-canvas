@@ -1,7 +1,7 @@
 /**
  * flying-canvas
  * Flying Canvas.
- * @version v0.0.1 - 2019-04-04
+ * @version v0.0.2 - 2019-04-06
  * @link https://github.com/ajsoriar/flying-canvas
  * @author Andres J. Soria R. <ajsoriar@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
