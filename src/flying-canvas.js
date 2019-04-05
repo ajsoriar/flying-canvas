@@ -46,7 +46,7 @@
                 arm_v_styles = '',
                 picture_styles = '';
 
-            canvas_styles_1 += 'border: 0px solid red; display: block; box-shadow: 4px 6px 8px 2px rgba(0,0,0,0.5);';
+            canvas_styles_1 += 'border: 0px solid red; box-shadow: 4px 6px 8px 2px rgba(0,0,0,0.5);';
             canvas_styles_1 += 'width: '+ defaults.canvas_w +'px;';
             canvas_styles_1 += 'height: '+ defaults.canvas_h +'px;';
             var arm_w = defaults.canvas_w - ( 2 * defaults.corner_size );
@@ -60,7 +60,7 @@
 
             function drawSquare() {
                 var str = '';
-                str +=  '<div class="main-container" style="position:absolute;'+ canvas_styles_1 +'">'+
+                str +=  '<div id="main-container" class="main-container" style="position:absolute;'+ canvas_styles_1 +'">'+
                             '<div class="wing right"></div>'+
                             '<div class="wing left"></div>'+
                             '<div class="mq top-l bg-1"></div>'+
@@ -152,17 +152,25 @@
         }
         */
 
+        var startAnimation = function() {
+            timerId = setTimeout(function request() {
+                 movementFunction(domEl);
+                 timerId = setTimeout(request, timeoutDelay);
+            }, timeoutDelay);
+        };
+
         var start = function (params) {
             incomming_params = params;
             if (domEl === null) {
                 createDomEl();
                 loadImage();
+                startAnimation();
             }
 
-            timerId = setTimeout(function request() {
-                movementFunction(domEl);
-                timerId = setTimeout(request, timeoutDelay);
-            }, timeoutDelay);
+            // timerId = setTimeout(function request() {
+            //     movementFunction(domEl);
+            //     timerId = setTimeout(request, timeoutDelay);
+            // }, timeoutDelay);
         };
 
         var stop = function () {
@@ -174,7 +182,7 @@
         };
 
         var show = function () {
-            if (domEl === null) createDomElt();
+            document.getElementById("main-container").style.display = "block";
         };
 
         var loadImage = function() {
@@ -182,14 +190,11 @@
             var newImg = new Image;
             newImg.onload = function() {
                 img.src = incomming_params.src;
+                show();
             }
             newImg.src = incomming_params.src; //'http://whatever';
             document.getElementById("picture").appendChild(img);
         };
-
-        // var isHidden = function() {
-        //     return true;
-        // };
 
         var getRandomX = function () {
 
@@ -221,8 +226,12 @@
 }(window));
 
 /*
+    // Example...
 
-    //flyingCanvas.show();
-    flyingCanvas.start();
+    flyingCanvas.start(        {
+        width: 100,
+        height: 200,
+        src: "./bg.bmp"
+    });
 
 */

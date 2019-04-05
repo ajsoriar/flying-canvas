@@ -13,8 +13,9 @@
     width: 300px;
     height: 375px;
     border: 1px solid red;
-    display: block;
-    xxxtransform: scale(0.6);
+    _display: block;
+    _transform: scale(0.6);
+    display: none;
 }
 
 #picture img{
