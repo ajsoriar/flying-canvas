@@ -10,7 +10,9 @@
 (function (scope) {
     "use strict";
     var fc = function () {
-        
+
+        var incomming_params = {};
+
         var getRndNumBetween = function (min, max) { // min and max included
             return Math.floor(Math.random() * (max - min + 1) + min)
         };
@@ -22,7 +24,8 @@
             wing_h: null,
             canvas_w: 350,
             canvas_h: 400,
-            corner_size: 75
+            corner_size: 75,
+            showWings: false
         };
 
         var current_x = null,
@@ -35,7 +38,7 @@
             timerId = null,
             timeoutDelay = 125; //125;
 
-        var getHtmlString = function (templateName, params) {
+        var getHtmlString = function (templateName) {
 
             var str = '',
                 canvas_styles_1 = '',
@@ -64,7 +67,7 @@
                             '<div class="mq top-c bg-2" style="'+ arm_h_styles +'"></div>'+
                             '<div class="mq top-r bg-1"></div>'+
                             '<div class="mq middle-l bg-3" style="'+ arm_v_styles +'"></div>'+
-                            '<div class="mq middle-c bg-4" style="'+ picture_styles +'"></div>'+
+                            '<div class="mq middle-c bg-4" style="'+ picture_styles +'" id="picture"></div>'+
                             '<div class="mq middle-r bg-3" style="'+ arm_v_styles +'"></div>'+
                             '<div class="mq bottom-l bg-1"></div>'+
                             '<div class="mq bottom-c bg-2" style="'+ arm_h_styles +'"></div>'+
@@ -120,7 +123,7 @@
             };
         };
 
-        var createDomEl = function (params) {
+        var createDomEl = function () {
             domEl = document.getElementById("flying-canvas");
             if (domEl != null) {
                 //cleanContent();
@@ -131,7 +134,7 @@
                 domEl.setAttribute("class", "flying-canvas");
                 domEl.style.position = "absolute";
             }
-            domEl.innerHTML = getHtmlString(defaults.template, params);
+            domEl.innerHTML = getHtmlString(defaults.template);
             document.body.appendChild(domEl);
         };
 
@@ -150,7 +153,12 @@
         */
 
         var start = function (params) {
-            if (domEl === null) createDomEl(params);
+            incomming_params = params;
+            if (domEl === null) {
+                createDomEl();
+                loadImage();
+            }
+
             timerId = setTimeout(function request() {
                 movementFunction(domEl);
                 timerId = setTimeout(request, timeoutDelay);
@@ -167,6 +175,16 @@
 
         var show = function () {
             if (domEl === null) createDomElt();
+        };
+
+        var loadImage = function() {
+            var img = document.createElement("img"); // document.getElementById('picture');
+            var newImg = new Image;
+            newImg.onload = function() {
+                img.src = incomming_params.src;
+            }
+            newImg.src = incomming_params.src; //'http://whatever';
+            document.getElementById("picture").appendChild(img);
         };
 
         // var isHidden = function() {

@@ -17,6 +17,13 @@
     xxxtransform: scale(0.6);
 }
 
+#picture img{
+    position: relative;
+    width: 90%;
+    top: 5%;
+    left: 8%;
+}
+
 .shape-square-r{
     display: none;
     position: absolute;
@@ -47,6 +54,8 @@
     height: 173px;
     background-color: lavender;
     background-image: url(./wing.png);
+    visibility: hidden;
+    display: none;
 }
 
 .wing.right{

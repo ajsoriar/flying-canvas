@@ -13,16 +13,17 @@
         background-image: url(./bg.bmp);
         }
     </style>
-    <link rel="stylesheet" href="../src/flying-canvas.css">
+    <link rel="stylesheet" href="../dist/flying-canvas.css">
 </head>
 <body>
-    <script src="../src/flying-canvas.js"></script>
+    <script src="../dist/flying-canvas.js"></script>
     <script>
         //flyingCanvas.show();
         flyingCanvas.start({
             width: 100,
             height: 200,
-            src: "./bg.bmp"
+            src: "./my-face.png",
+            showWings: false
         });
     </script>
     <b>flying-canvas.js</b>
