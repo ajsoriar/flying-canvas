@@ -1,6 +1,6 @@
 {
   "name": "flying-canvas",
-  "version": "v0.0.2",
+  "version": "v0.1.0",
   "description": "flying-canvas",
   "main": "dist/flying-canvas.min.js",
   "directories": {
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/ajsoriar/flying-canvas#readme",
   "devDependencies": {
-    "grunt": "~0.4",
     "grunt-cleanempty": "^1.0.3",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-concat": "~0.3.0",

@@ -1,7 +1,7 @@
 /**
  * flying-canvas
  * Flying Canvas.
- * @version v0.0.2 - 2019-04-06
+ * @version v0.1.0 - 2019-04-11
  * @link https://github.com/ajsoriar/flying-canvas
  * @author Andres J. Soria R. <ajsoriar@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -20,9 +20,19 @@
 
 #picture img{
     position: relative;
-    width: 90%;
-    top: 5%;
-    left: 8%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.no-img { 
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
 }
 
 .shape-square-r{
