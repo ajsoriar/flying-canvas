@@ -30,7 +30,8 @@
             canvas_w: 350,
             canvas_h: 400,
             corner_size: 75,
-            showWings: false
+            showWings: false,
+            bumpIntoEdgeFn: mull
         };
 
         var current_x = null,
@@ -110,22 +111,26 @@
             if (current_y === null) current_y = getRndNumBetween(1,window_max_y); // Get random value here
 
             var x = 0,
-                y = 0;
+                y = 0,
+                bump = false;
 
-            if (current_x <= 0) des_x = -des_x;
-            if (current_y <= 0) des_y = -des_y;
-            if (current_x >= window_max_x) des_x = -des_x;
-            if (current_y >= window_max_y) des_y = -des_y;
+            if (current_x <= 0) { des_x = -des_x; bump = true; }
+            if (current_y <= 0) { des_y = -des_y; bump = true; }
+            if (current_x >= window_max_x) { des_x = -des_x; bump = true; }
+            if (current_y >= window_max_y) { des_y = -des_y; bump = true; }
             current_x = current_x - des_x;
             current_y = current_y - des_y;
             //console.log("Move! current_x:", current_x, " current_y:", current_y);
             el.style.top = current_y + "px";
             el.style.left = current_x + "px";
 
-            return {
+            var result = {
                 x: x,
                 y: y
             };
+            
+            if ( bump === true && bumpIntoEdgeFn !== null ) bumpIntoEdgeFn( result );
+            return result;
         };
 
         var createDomEl = function () {
@@ -234,7 +239,10 @@
             //destroy: destroy,
             setDelay: setDelayInterval,
             loadImage: loadImage,
-            clearImage: clearImage
+            clearImage: clearImage,
+            bumpIntoEdgeFn: function (fn){
+                bumpIntoEdgeFn = fn;
+            }
         };
 
     };
