@@ -129,7 +129,7 @@
                 y: y
             };
             
-            //if ( bump === true && bumpIntoEdgeFn !== null ) bumpIntoEdgeFn( result );
+            if ( bump === true && incomming_params.bumpIntoEdgeFn !== null ) incomming_params.bumpIntoEdgeFn( result );
             return result;
         };
 
@@ -241,7 +241,7 @@
             loadImage: loadImage,
             clearImage: clearImage,
             bumpIntoEdgeFn: function (fn){
-                bumpIntoEdgeFn = fn;
+                incomming_params.bumpIntoEdgeFn = fn;
             }
         };
 
