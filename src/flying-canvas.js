@@ -31,7 +31,7 @@
             canvas_h: 400,
             corner_size: 75,
             showWings: false,
-            bumpIntoEdgeFn: mull
+            bumpIntoEdgeFn: null
         };
 
         var current_x = null,
@@ -129,7 +129,7 @@
                 y: y
             };
             
-            if ( bump === true && bumpIntoEdgeFn !== null ) bumpIntoEdgeFn( result );
+            //if ( bump === true && bumpIntoEdgeFn !== null ) bumpIntoEdgeFn( result );
             return result;
         };
 
