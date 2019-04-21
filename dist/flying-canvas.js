@@ -1,7 +1,7 @@
 /**
  * flying-canvas
  * Flying Canvas.
- * @version v0.1.0 - 2019-04-11
+ * @version v1.0.0 - 2019-04-22
  * @link https://github.com/ajsoriar/flying-canvas
  * @author Andres J. Soria R. <ajsoriar@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -30,7 +30,8 @@
             canvas_w: 350,
             canvas_h: 400,
             corner_size: 75,
-            showWings: false
+            showWings: false,
+            bumpIntoEdgeFn: null
         };
 
         var current_x = null,
@@ -81,13 +82,13 @@
                 return str;
             }
 
-            function drawCircle() {
-                return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-circle">htmlstring</div></div>';
-            }
+            // function drawCircle() {
+            //     return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-circle">htmlstring</div></div>';
+            // }
 
-            function drawOval() {
-                return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-oval">htmlstring</div></div>';
-            }
+            // function drawOval() {
+            //     return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-oval">htmlstring</div></div>';
+            // }
 
             switch (templateName) {
                 case 'SQUARE':
@@ -110,22 +111,26 @@
             if (current_y === null) current_y = getRndNumBetween(1,window_max_y); // Get random value here
 
             var x = 0,
-                y = 0;
+                y = 0,
+                bump = false;
 
-            if (current_x <= 0) des_x = -des_x;
-            if (current_y <= 0) des_y = -des_y;
-            if (current_x >= window_max_x) des_x = -des_x;
-            if (current_y >= window_max_y) des_y = -des_y;
+            if (current_x <= 0) { des_x = -des_x; bump = true; }
+            if (current_y <= 0) { des_y = -des_y; bump = true; }
+            if (current_x >= window_max_x) { des_x = -des_x; bump = true; }
+            if (current_y >= window_max_y) { des_y = -des_y; bump = true; }
             current_x = current_x - des_x;
             current_y = current_y - des_y;
             //console.log("Move! current_x:", current_x, " current_y:", current_y);
             el.style.top = current_y + "px";
             el.style.left = current_x + "px";
 
-            return {
+            var result = {
                 x: x,
                 y: y
             };
+
+            if ( bump === true && incomming_params.bumpIntoEdgeFn !== null ) incomming_params.bumpIntoEdgeFn( result );
+            return result;
         };
 
         var createDomEl = function () {
@@ -211,8 +216,10 @@
             if ( url ) {
                 newImg.src = url;
             } else {
-                newImg.src = base64String + awesomeImg;
-                newImg.setAttribute("style","position:relative;width:90%;top:5%;left:8%;");
+                if ( incomming_params.awesome === true  ) {
+                    newImg.src = base64String + awesomeImg;
+                    newImg.setAttribute("style","position:relative;width:90%;top:5%;left:8%;");
+                }
             }
 
             clearImage();
@@ -234,7 +241,10 @@
             //destroy: destroy,
             setDelay: setDelayInterval,
             loadImage: loadImage,
-            clearImage: clearImage
+            clearImage: clearImage,
+            bumpIntoEdgeFn: function (fn){
+                incomming_params.bumpIntoEdgeFn = fn;
+            }
         };
 
     };
@@ -249,7 +259,8 @@
     flyingCanvas.start(        {
         width: 100,
         height: 200,
-        src: "./bg.bmp"
+        src: "./bg.bmp",
+        awesome: true
     });
 
 */
