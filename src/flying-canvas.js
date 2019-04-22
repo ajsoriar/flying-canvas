@@ -169,7 +169,7 @@
             }, timeoutDelay);
         };
 
-        var start = function (params) {
+        var init = function (params) {
             incomming_params = params;
             if (domEl === null) {
                 createDomEl();
@@ -187,8 +187,12 @@
             clearTimeout(timerId);
         };
 
-        var hide = function () {
+        var start = function () {
+            startAnimation();
+        };
 
+        var hide = function () {
+            document.getElementById("main-container").style.display = "none";
         };
 
         var show = function () {
@@ -232,12 +236,11 @@
         };
 
         return {
-            //go: start,
+            init: init,
             start: start,
             stop: stop,
-            //start: start,
-            //show: show,
-            //hide: hide,
+            show: show,
+            hide: hide,
             //destroy: destroy,
             setDelay: setDelayInterval,
             loadImage: loadImage,
@@ -256,7 +259,7 @@
 /*
     // Example...
 
-    flyingCanvas.start(        {
+    flyingCanvas.init({
         width: 100,
         height: 200,
         src: "./bg.bmp",

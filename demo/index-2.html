@@ -7,10 +7,16 @@
     <title>flying-canvas.js</title>
     <style>
         body {
-        -webkit-font-smoothing: none;
-        -moz-osx-font-smoothing: grayscale;
-        font-size: 24px;
-        background-image: url(./bg.bmp);
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 24px;
+            background-image: url(./bg.bmp);
+        }
+
+        button {
+            padding: 7px 12px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
     <link rel="stylesheet" href="../src/flying-canvas.css">
@@ -18,10 +24,10 @@
 <body>
     <script src="../src/flying-canvas.js"></script>
     <script>
-        //flyingCanvas.show();
-        flyingCanvas.start({
-            width: 100,
-            height: 200,
+
+        flyingCanvas.init({
+            width: 200,
+            height: 400,
             showWings: false,
             bumpIntoEdgeFn: function(){
                 console.log("Choca 1!");
@@ -34,5 +40,9 @@
 
     </script>
     <b>flying-canvas.js</b>
+    <button onclick="flyingCanvas.show()">show</button>
+    <button onclick="flyingCanvas.hide()">hide</button>
+    <button onclick="flyingCanvas.stop()">stop</button>
+    <button onclick="flyingCanvas.start()">start</button>
 </body>
 </html>
