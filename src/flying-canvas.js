@@ -133,7 +133,7 @@
             return result;
         };
 
-        var createDomEl = function () {
+        var createDomEl = function (params) {
             domEl = document.getElementById("flying-canvas");
             if (domEl != null) {
                 //cleanContent();
@@ -143,6 +143,10 @@
                 domEl.setAttribute("id", ID);
                 domEl.setAttribute("class", "flying-canvas");
                 domEl.style.position = "absolute";
+                domEl.style.top = params.top +"px" || null;
+                domEl.style.left = params.left +"px" || null;
+                current_x = params.top || null;
+                current_y = params.left || null;
             }
             domEl.innerHTML = getHtmlString(defaults.template);
             document.body.appendChild(domEl);
@@ -168,11 +172,15 @@
                  timerId = setTimeout(request, timeoutDelay);
             }, timeoutDelay);
         };
+        
+        var tic = function(){
+            movementFunction(domEl);
+        };
 
         var init = function (params) {
             incomming_params = params;
             if (domEl === null) {
-                createDomEl();
+                createDomEl(params);
                 loadImage(incomming_params.src);
                 if ( params.animation != false ) startAnimation();
             }
@@ -247,7 +255,8 @@
             clearImage: clearImage,
             bumpIntoEdgeFn: function (fn){
                 incomming_params.bumpIntoEdgeFn = fn;
-            }
+            },
+            tic:tic
         };
 
     };
