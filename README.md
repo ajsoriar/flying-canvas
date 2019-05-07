@@ -1,7 +1,6 @@
 # flying-canvas [![Build Status](https://travis-ci.org/ajsoriar/angular-avatar.svg?branch=master)](https://travis-ci.org/ajsoriar/angular-avatar)
 
 [![yarn version](https://badge.fury.io/js/flying-canvas.svg)](https://badge.fury.io/js/flying-canvas)
-[![Bower version](https://badge.fury.io/bo/flying-canvas.svg)](https://badge.fury.io/bo/flying-canvas)
 [![NuGet version](https://badge.fury.io/nu/flying-canvas.svg)](https://badge.fury.io/nu/flying-canvas)
 
 flying-canvas is awesome
