@@ -29,7 +29,7 @@ You will find .js and .css files in `dist` folder.
 
 ```javascript
 <script>
-    flyingCanvas.start({
+    flyingCanvas.init({
         showWings: false,
         animation: false
     });
@@ -40,11 +40,11 @@ When the canvas pane bumps into the edges a function can be executed specifying 
 
 ```javascript
 <script>
-    flyingCanvas.start({
+    flyingCanvas.init({
         showWings: false,
         bumpIntoEdgeFn: function(){
             console.log("Choca 1!");
-        }
+        },
         animation: false
     });
 </script>
@@ -56,7 +56,7 @@ Use `src: "./void.png"` to load a pinture in the canvas.
 
 ```javascript
 <script>
-    flyingCanvas.start({
+    flyingCanvas.init({
         src: "./void.png"
     });
 </script>
