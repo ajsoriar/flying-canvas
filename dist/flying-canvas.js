@@ -1,7 +1,7 @@
 /**
  * flying-canvas
  * Flying Canvas.
- * @version v1.0.0 - 2019-04-22
+ * @version v1.1.0 - 2019-05-12
  * @link https://github.com/ajsoriar/flying-canvas
  * @author Andres J. Soria R. <ajsoriar@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -24,27 +24,32 @@
 
         var defaults = {
             timeoutDelay: 500,
-            template: "SQUARE", // CIRCLE, OVAL
+            templateType: "SQUARE", // CIRCLE, OVAL
             wing_w: null,
             wing_h: null,
             canvas_w: 350,
             canvas_h: 400,
             corner_size: 75,
             showWings: false,
-            bumpIntoEdgeFn: null
+            bumpIntoEdgeFn: null,
+            zIndex: 100
         };
 
+        // TODO: init params will overwrite this values
         var current_x = null,
             current_y = null,
-            des_x = getRndNumBetween(1,10),
-            des_y = getRndNumBetween(1,10),
+            des_x = getRndNumBetween(1, 10),
+            des_y = getRndNumBetween(1, 10),
             window_max_x = window.innerWidth - defaults.canvas_w, //640,
             window_max_y = window.innerHeight - defaults.canvas_h, //480,
             domEl = null,
             timerId = null,
-            timeoutDelay = 125; //125;
+            timeoutDelay = 125,
+            zIndex = defaults.zIndex;
 
-        var getHtmlString = function (templateName) {
+        var getHtmlString = function (templateType, name, properties) {
+
+            if ( name === null) name = Date.now();
 
             var str = '',
                 canvas_styles_1 = '',
@@ -53,32 +58,33 @@
                 picture_styles = '';
 
             canvas_styles_1 += 'border: 0px solid red; box-shadow: 4px 6px 8px 2px rgba(0,0,0,0.5);';
-            canvas_styles_1 += 'width: '+ defaults.canvas_w +'px;';
-            canvas_styles_1 += 'height: '+ defaults.canvas_h +'px;';
-            var arm_w = defaults.canvas_w - ( 2 * defaults.corner_size );
-            var arm_h = defaults.canvas_h - ( 2 * defaults.corner_size );
-            arm_h_styles += 'width: '+ arm_w +'px;';
-            arm_v_styles += 'height: '+ arm_h +'px;';
+            canvas_styles_1 += 'width: ' + defaults.canvas_w + 'px;';
+            canvas_styles_1 += 'height: ' + defaults.canvas_h + 'px;';
+            canvas_styles_1 += 'z-index: ' + properties.zIndex;
+            var arm_w = defaults.canvas_w - (2 * defaults.corner_size);
+            var arm_h = defaults.canvas_h - (2 * defaults.corner_size);
+            arm_h_styles += 'width: ' + arm_w + 'px;';
+            arm_v_styles += 'height: ' + arm_h + 'px;';
             picture_styles += 'border: 0px solid red; display: block; background-color: black;';
             picture_styles += 'background-image: linear-gradient(red, yellow, blue); background-size: 100% 100%;'
-            picture_styles += 'width: '+ arm_w +'px;';
-            picture_styles += 'height: '+ arm_h +'px;';
+            picture_styles += 'width: ' + arm_w + 'px;';
+            picture_styles += 'height: ' + arm_h + 'px;';
 
             function drawSquare() {
                 var str = '';
-                str +=  '<div id="main-container" class="main-container" style="position:absolute;'+ canvas_styles_1 +'">'+
-                            '<div class="wing right"></div>'+
-                            '<div class="wing left"></div>'+
-                            '<div class="mq top-l bg-1"></div>'+
-                            '<div class="mq top-c bg-2" style="'+ arm_h_styles +'"></div>'+
-                            '<div class="mq top-r bg-1"></div>'+
-                            '<div class="mq middle-l bg-3" style="'+ arm_v_styles +'"></div>'+
-                            '<div class="mq middle-c bg-4" style="'+ picture_styles +'" id="picture"></div>'+
-                            '<div class="mq middle-r bg-3" style="'+ arm_v_styles +'"></div>'+
-                            '<div class="mq bottom-l bg-1"></div>'+
-                            '<div class="mq bottom-c bg-2" style="'+ arm_h_styles +'"></div>'+
-                            '<div class="mq bottom-r bg-1"></div>'+
-                        '</div>';
+                str += '<div id="main-container" name="' + name + '" class="main-container" style="position:absolute;' + canvas_styles_1 + '">' +
+                    '<div class="wing right"></div>' +
+                    '<div class="wing left"></div>' +
+                    '<div class="mq top-l bg-1"></div>' +
+                    '<div class="mq top-c bg-2" style="' + arm_h_styles + '"></div>' +
+                    '<div class="mq top-r bg-1"></div>' +
+                    '<div class="mq middle-l bg-3" style="' + arm_v_styles + '"></div>' +
+                    '<div class="mq middle-c bg-4" style="' + picture_styles + '" id="picture"></div>' +
+                    '<div class="mq middle-r bg-3" style="' + arm_v_styles + '"></div>' +
+                    '<div class="mq bottom-l bg-1"></div>' +
+                    '<div class="mq bottom-c bg-2" style="' + arm_h_styles + '"></div>' +
+                    '<div class="mq bottom-r bg-1"></div>' +
+                    '</div>';
                 return str;
             }
 
@@ -90,7 +96,7 @@
             //     return '<div style="position:absolute;' + canvas_styles_1 + '"><div class="shape-oval">htmlstring</div></div>';
             // }
 
-            switch (templateName) {
+            switch (templateType) {
                 case 'SQUARE':
                     str = drawSquare();
                     break;
@@ -107,17 +113,29 @@
 
         var movementFunction = function (el) {
 
-            if (current_x === null) current_x = getRndNumBetween(1,window_max_x); // Get random value here
-            if (current_y === null) current_y = getRndNumBetween(1,window_max_y); // Get random value here
+            if (current_x === null) current_x = getRndNumBetween(1, window_max_x); // Get random value here
+            if (current_y === null) current_y = getRndNumBetween(1, window_max_y); // Get random value here
 
             var x = 0,
                 y = 0,
                 bump = false;
 
-            if (current_x <= 0) { des_x = -des_x; bump = true; }
-            if (current_y <= 0) { des_y = -des_y; bump = true; }
-            if (current_x >= window_max_x) { des_x = -des_x; bump = true; }
-            if (current_y >= window_max_y) { des_y = -des_y; bump = true; }
+            if (current_x <= 0) {
+                des_x = -des_x;
+                bump = true;
+            }
+            if (current_y <= 0) {
+                des_y = -des_y;
+                bump = true;
+            }
+            if (current_x >= window_max_x) {
+                des_x = -des_x;
+                bump = true;
+            }
+            if (current_y >= window_max_y) {
+                des_y = -des_y;
+                bump = true;
+            }
             current_x = current_x - des_x;
             current_y = current_y - des_y;
             //console.log("Move! current_x:", current_x, " current_y:", current_y);
@@ -129,22 +147,29 @@
                 y: y
             };
 
-            if ( bump === true && incomming_params.bumpIntoEdgeFn !== null ) incomming_params.bumpIntoEdgeFn( result );
+            if (bump === true && incomming_params.bumpIntoEdgeFn !== null) incomming_params.bumpIntoEdgeFn(result);
             return result;
         };
 
-        var createDomEl = function () {
-            domEl = document.getElementById("flying-canvas");
+        var createDomEl = function (params) {
+            domEl = document.getElementById('flying-canvas');
             if (domEl != null) {
                 //cleanContent();
             } else {
-                var ID = "flying-canvas-" + Date.now();
+                var ID = 'flying-canvas-' + Date.now();
                 domEl = document.createElement('div');
-                domEl.setAttribute("id", ID);
-                domEl.setAttribute("class", "flying-canvas");
-                domEl.style.position = "absolute";
+                domEl.setAttribute('id', ID);
+                domEl.setAttribute('class', 'flying-canvas');
+                domEl.style.position = 'absolute';
+                domEl.style.top = params.top + 'px' || null;
+                domEl.style.left = params.left + 'px' || null;
+                current_x = params.top || null;
+                current_y = params.left || null;
+                zIndex = params.zIndex || defaults.zIndex;
             }
-            domEl.innerHTML = getHtmlString(defaults.template);
+            domEl.innerHTML = getHtmlString(defaults.templateType, "LOL", {
+                zIndex: zIndex
+            });
             document.body.appendChild(domEl);
         };
 
@@ -162,19 +187,23 @@
         }
         */
 
-        var startAnimation = function() {
+        var startAnimation = function () {
             timerId = setTimeout(function request() {
-                 movementFunction(domEl);
-                 timerId = setTimeout(request, timeoutDelay);
+                movementFunction(domEl);
+                timerId = setTimeout(request, timeoutDelay);
             }, timeoutDelay);
+        };
+
+        var tic = function () {
+            movementFunction(domEl);
         };
 
         var init = function (params) {
             incomming_params = params;
             if (domEl === null) {
-                createDomEl();
+                createDomEl(params);
                 loadImage(incomming_params.src);
-                if ( params.animation != false ) startAnimation();
+                if (params.animation != false) startAnimation();
             }
 
             // timerId = setTimeout(function request() {
@@ -199,30 +228,30 @@
             document.getElementById("main-container").style.display = "block";
         };
 
-        var clearImage = function(){
+        var clearImage = function () {
             document.getElementById("picture").innerHTML = '';
         }
 
-        var loadImage = function(url) {
+        var loadImage = function (url) {
 
-            if ( url === null) {
+            if (url === null) {
                 clearImage();
                 return;
             }
 
             var newImg = new Image;
             newImg.onload = show();
-            newImg.onerror = function (){
-                newImg.setAttribute("class","no-img");
+            newImg.onerror = function () {
+                newImg.setAttribute("class", "no-img");
                 newImg.src = base64String + none;
             };
 
-            if ( url ) {
+            if (url) {
                 newImg.src = url;
             } else {
-                if ( incomming_params.awesome === true  ) {
+                if (incomming_params.awesome === true) {
                     newImg.src = base64String + awesomeImg;
-                    newImg.setAttribute("style","position:relative;width:90%;top:5%;left:8%;");
+                    newImg.setAttribute("style", "position:relative;width:90%;top:5%;left:8%;");
                 }
             }
 
@@ -245,9 +274,11 @@
             setDelay: setDelayInterval,
             loadImage: loadImage,
             clearImage: clearImage,
-            bumpIntoEdgeFn: function (fn){
+            bumpIntoEdgeFn: function (fn) {
                 incomming_params.bumpIntoEdgeFn = fn;
-            }
+            },
+            tic: tic //,
+            //setzIndex: setzIndex, 
         };
 
     };
@@ -267,4 +298,3 @@
     });
 
 */
-

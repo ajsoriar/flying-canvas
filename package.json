@@ -1,6 +1,6 @@
 {
   "name": "flying-canvas",
-  "version": "v1.0.0",
+  "version": "v1.1.0",
   "description": "flying-canvas",
   "main": "dist/flying-canvas.min.js",
   "directories": {
