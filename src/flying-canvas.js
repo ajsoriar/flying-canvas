@@ -309,10 +309,18 @@
     // Example...
 
     flyingCanvas.init({
-        width: 100,
-        height: 200,
-        src: "./bg.bmp",
-        awesome: 'COLUMN' 
+        width: 200,
+        height: 400,
+        showWings: false,
+        bumpIntoEdgeFn: function(){
+            console.log("Choca 1!");
+        },
+        zIndex: 300,
+        awesome: 2
+    });
+
+    flyingCanvas.bumpIntoEdgeFn(function(){
+        console.log("Choca 2!");
     });
 
 */

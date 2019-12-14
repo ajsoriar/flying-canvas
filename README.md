@@ -3,7 +3,10 @@
 [![yarn version](https://badge.fury.io/js/flying-canvas.svg)](https://badge.fury.io/js/flying-canvas)
 [![NuGet version](https://badge.fury.io/nu/flying-canvas.svg)](https://badge.fury.io/nu/flying-canvas)
 
-flying-canvas is awesome
+flying-canvas is awesome. LOL!
+
+![flying-canvas demo image](./demo/flying-canvas.gif?raw=true "flying-canvas demo image")
+Check out the live example: **<https://www.subidote.com/flying-canvas>**
 
 ## Use it this way
 
@@ -58,6 +61,23 @@ Use `src: "./void.png"` to load a pinture in the canvas.
 <script>
     flyingCanvas.init({
         src: "./void.png"
+    });
+</script>
+```
+
+#### 2.3 Awesome
+
+```javascript
+<script>
+    flyingCanvas.init({
+        width: 200,
+        height: 400,
+        showWings: false,
+        bumpIntoEdgeFn: function(){
+            console.log("Choca 1!");
+        },
+        zIndex: 300,
+        awesome: 2 // This will render the picture of the column
     });
 </script>
 ```
