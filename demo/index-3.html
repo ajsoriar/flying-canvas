@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flying-canvas.js</title>
+    <style>
+        body {
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 24px;
+            background-image: url(./bg.bmp);
+        }
+
+        button {
+            padding: 7px 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="../src/flying-canvas.css">
+</head>
+<body>
+    <script src="../src/flying-canvas.js"></script>
+    <script>
+
+        flyingCanvas.init({
+            width: 200,
+            height: 400,
+            showWings: false,
+            bumpIntoEdgeFn: function(){
+                console.log("Choca 1!");
+            },
+            zIndex: 300,
+            awesome: 2
+        });
+
+        flyingCanvas.bumpIntoEdgeFn(function(){
+            console.log("Choca 2!");
+        });
+
+    </script>
+    <b>flying-canvas.js</b>
+    <button onclick="flyingCanvas.show()">show</button>
+    <button onclick="flyingCanvas.hide()">hide</button>
+    <button onclick="flyingCanvas.stop()">stop</button>
+    <button onclick="flyingCanvas.start()">start</button>
+</body>
+</html>
