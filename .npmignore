@@ -1,6 +1,7 @@
 webpack.config.js
-
+node_modules
 .babelrc
-
+Gruntfile.js
+gruntfile.js
 scripts
 src

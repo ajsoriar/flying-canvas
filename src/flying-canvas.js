@@ -114,6 +114,19 @@
             return str;
         };
 
+        var moveTo = function (x,y) {
+            current_x = x;
+            current_x = y;
+        }
+
+        var moveToRandomPosition = function(){
+            var a = getRndNumBetween(1, window_max_x);
+            var b = getRndNumBetween(1, window_max_y);
+            des_x = getRndNumBetween(1, 10),
+            des_y = getRndNumBetween(1, 10),
+            moveTo(a,b);
+        };
+
         var movementFunction = function (el) {
 
             if (current_x === null) current_x = getRndNumBetween(1, window_max_x); // Get random value here
@@ -277,6 +290,9 @@
             show: show,
             hide: hide,
             //destroy: destroy,
+            moveTo: moveTo,
+            getRndNumBetween: getRndNumBetween,
+            moveToRandomPosition: moveToRandomPosition,
             setDelay: setDelayInterval,
             loadImage: loadImage,
             clearImage: clearImage,
