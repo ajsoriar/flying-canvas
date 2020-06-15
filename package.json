@@ -1,6 +1,6 @@
 {
   "name": "flying-canvas",
-  "version": "v1.1.1",
+  "version": "v1.2.0",
   "description": "flying-canvas",
   "main": "dist/flying-canvas.min.js",
   "directories": {
@@ -26,5 +26,8 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-uglify": "~0.2.2"
+  },
+  "dependencies": {
+    "grunt": "^1.1.0"
   }
 }
